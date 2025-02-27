@@ -1,11 +1,12 @@
-import { Row, Col, Typography, Input } from "antd";
-const { Title } = Typography;
+import { Row, Col, Input } from "antd";
+// import Heading from "../heading";
+import Heading from "../heading/Heading";
 const { Search } = Input;
 function Header() {
   return (
     <Row>
       <Col span={24} sm={14} offset={1}>
-        <Title level={2}>Rick And Morty</Title>
+        <Heading level={3} title={"Rick And Morty"} />
       </Col>
       <Col span={24} sm={8} offset={1}>
         <Search
@@ -15,5 +16,6 @@ function Header() {
         />
       </Col>
     </Row>
-  )};
-  export default Header
+  );
+}
+export default Header;
