@@ -1,0 +1,45 @@
+.pagination-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the pagination to the right */
+    margin: 20px; /* Adjust margin as needed */
+  }
+  
+  .pagination {
+    display: inline-block;
+  }
+  .card {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    margin-left: 500px;
+    height: 40px;
+  }
+  /* Profile.css */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center */
+  align-items: center; /* Horizontally center */
+  height: 100vh; /* Take full viewport height */
+  padding: 20px; /* Optional padding around */
+  text-align: center; /* Optional, for better alignment of text */
+}
+
+.go-back-link {
+  margin-bottom: 20px; /* Space between the "Go Back" link and the card */
+  text-decoration: none; /* Remove underline from the link */
+  font-size: 16px;
+  color: #1890ff; /* You can change this to match your theme */
+}
+/* App.css */
+
+/* Apply a medium size to the Title component */
+.medium-title {
+  font-size: 18px;  /* Medium font size, you can adjust this as needed */
+  font-weight: 500; /* Medium weight for the font */
+  color: #333;     /* Optional: Change the text color */
+  margin: 10px 0;  /* Add some spacing between the titles */
+}
+.cards{
+  margin-left: 40px;
+}

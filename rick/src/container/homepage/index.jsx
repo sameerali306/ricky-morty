@@ -2,11 +2,12 @@
 import MainLayout from "../layout";
 import Cards from "../../components/Card/Card";
 import { Row, Col } from 'antd'
+import Pagination from "../../components/pegination/Pegination";
 
 function HomePage() {
   return (
     <MainLayout>
-      <div>
+      <div className="cards">
         <Row>
           <Col span={24} sm={6}>
            <Cards/>
@@ -22,6 +23,8 @@ function HomePage() {
           </Col>
          
         </Row>
+        
+        <Pagination/>
 
       </div>
     </MainLayout>
