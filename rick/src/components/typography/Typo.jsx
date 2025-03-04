@@ -4,11 +4,11 @@ import { Typography } from 'antd';
 
 const { Title } = Typography;
 
-const App = () => (
+const TYPO = () => (
   <>
-    <Title level={5} className="medium-title">h5. Ant Design</Title>
+    {/* <Title level={5} className="medium-title">h5. Ant Design</Title> */}
   
   </>
 );
 
-export default App;
+export default TYPO;
