@@ -22,6 +22,26 @@ function Profile() {
           <Col span={6}>heading</Col>
           <Col span={6}>typo</Col>
         </Row>
+        <Row>
+          <Col span={6}>heading</Col>
+          <Col span={6}>typo</Col>
+        </Row>
+        <Row>
+          <Col span={6}>heading</Col>
+          <Col span={6}>typo</Col>
+        </Row>
+        <Row>
+          <Col span={6}>heading</Col>
+          <Col span={6}>typo</Col>
+        </Row>
+        <Row>
+          <Col span={6}>heading</Col>
+          <Col span={6}>typo</Col>
+        </Row>
+        <Row>
+          <Col span={6}>heading</Col>
+          <Col span={6}>typo</Col>
+        </Row>
 
         <App/>
       </Card>
