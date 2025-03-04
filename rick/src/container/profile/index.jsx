@@ -1,56 +1,59 @@
-import React from 'react'
-import { Link as RouterLink } from 'react-router'  // Update to 'react-router-dom' for newer versions
+import React from 'react';
+import { Link as RouterLink } from 'react-router'; 
 import { Card, Row, Col } from 'antd';
-import TYPO from "../../components/typography/Typo"  // Assuming this is your custom component
+import TYPO from "../../components/typography/Typo";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import MainLayout from "../layout";
 
 function Profile() {
   return (
-    <div className='card'>
+    <MainLayout>
+      <div className='card'>
         <RouterLink to="/" className="go-back-link">
           <FontAwesomeIcon icon={faArrowLeft} /> Back to HomePage
         </RouterLink>
-        
-        <Card 
+
+        <Card
           hoverable
           style={{
             width: 240,
-            marginTop: '20px', // You can adjust the margin as needed
+            height: 300,
+            marginTop: 20, // Corrected margin-top to marginTop
           }}
-          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" style={{ width: '100%', maxHeight: '150px', objectFit: 'cover', objectPosition: 'top' }} />}
         >
-          {/* You can structure your data rows here */}
-          <Row gutter={[16, 16]}>  {/* 'gutter' adds spacing between columns */}
-            <Col span={12}>Heading 1</Col>
+          {/* Content inside Card */}
+          <Row gutter={[16, 16]}>
+            <Col span={12} style={{ fontWeight: 'bold' }}>Heading:</Col>
             <Col span={12}>Typo 1</Col>
           </Row>
 
           <Row gutter={[16, 16]}>
-            <Col span={12}>Heading 2</Col>
+            <Col span={12} style={{ fontWeight: 'bold' }}>Heading:</Col>
             <Col span={12}>Typo 2</Col>
           </Row>
 
           <Row gutter={[16, 16]}>
-            <Col span={12}>Heading 3</Col>
+            <Col span={12} style={{ fontWeight: 'bold' }}>Heading:</Col>
             <Col span={12}>Typo 3</Col>
           </Row>
 
           <Row gutter={[16, 16]}>
-            <Col span={12}>Heading 4</Col>
+            <Col span={12} style={{ fontWeight: 'bold' }}>Heading:</Col>
             <Col span={12}>Typo 4</Col>
           </Row>
 
           <Row gutter={[16, 16]}>
-            <Col span={12}>Heading 5</Col>
+            <Col span={12} style={{ fontWeight: 'bold' }}>Heading:</Col>
             <Col span={12}>Typo 5</Col>
           </Row>
 
-         
           <TYPO />
         </Card>
-    </div>
-  )
+      </div>
+    </MainLayout>
+  );
 }
 
 export default Profile;
