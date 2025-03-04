@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router'
-import { Card } from 'antd';
+import { Card, Row,Col } from 'antd';
 import App from "../../components/typography/Typo";
 
 function Profile() {
@@ -18,6 +18,11 @@ function Profile() {
         {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}
         {/* <Heading level={5} title={"card name"} /> */}
         {/* <RouterLink to="/Profile">view profile</RouterLink>  */}
+        <Row>
+          <Col span={6}>heading</Col>
+          <Col span={6}>typo</Col>
+        </Row>
+
         <App/>
       </Card>
       

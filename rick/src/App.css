@@ -39,6 +39,7 @@
   font-weight: 500; /* Medium weight for the font */
   color: #333;     /* Optional: Change the text color */
   margin: 10px 0;  /* Add some spacing between the titles */
+  height: 10px;
 }
 .cards{
   margin-left: 40px;
