@@ -1,32 +1,25 @@
-// import MainLayout from "./container/layout";
+import { Col, Row } from "antd";
 import MainLayout from "../layout";
-import Cards from "../../components/Card/Card";
-import { Row, Col } from 'antd'
-import Pagination from "../../components/pegination/Pegination";
-
+import { fetchData, characterData } from "../../app/store/feature/characterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import CardComponent from "../../components/Card/Card";
 function HomePage() {
+  const data = useSelector(characterData);
+  const dispatch = useDispatch();
+  console.log(data, "data here!");
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
   return (
     <MainLayout>
-      <div className="cards">
-        <Row>
+      <Row justify="space-around">
+        {data?.map((items) => {
           <Col span={24} sm={6}>
-           <Cards/>
-          </Col>
-          <Col span={24} sm={6}>
-           <Cards/>
-          </Col>
-          <Col span={24} sm={6}>
-           <Cards/>
-          </Col>
-          <Col span={24} sm={6}>
-           <Cards/>
-          </Col>
-         
-        </Row>
-        
-        <Pagination/>
-
-      </div>
+            <CardComponent title={items.name} imgUrl={items.image} />
+          </Col>;
+        })}
+      </Row>
     </MainLayout>
   );
 }

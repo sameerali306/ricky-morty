@@ -19,11 +19,11 @@ function Profile() {
           style={{
             width: 240,
             height: 300,
-            marginTop: 20, // Corrected margin-top to marginTop
+            marginTop: 20, 
           }}
           cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" style={{ width: '100%', maxHeight: '150px', objectFit: 'cover', objectPosition: 'top' }} />}
         >
-          {/* Content inside Card */}
+          
           <Row gutter={[16, 16]}>
             <Col span={12} style={{ fontWeight: 'bold' }}>Heading:</Col>
             <Col span={12}>Typo 1</Col>

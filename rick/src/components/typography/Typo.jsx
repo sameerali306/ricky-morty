@@ -7,7 +7,6 @@ const { Title } = Typography;
 const TYPO = () => (
   <>
     {/* <Title level={5} className="medium-title">h5. Ant Design</Title> */}
-  
   </>
 );
 
