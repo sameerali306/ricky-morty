@@ -3,7 +3,7 @@ import MainLayout from "../layout";
 import { fetchData, characterData } from "../../app/store/feature/characterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import CardComponent from "../../components/Card/Card";
+import CardComponent from "../../components/Card";
 function HomePage() {
   const data = useSelector(characterData);
   const dispatch = useDispatch();
@@ -14,11 +14,14 @@ function HomePage() {
   return (
     <MainLayout>
       <Row justify="space-around">
-        {data?.map((items) => {
-          <Col span={24} sm={6}>
-            <CardComponent title={items.name} imgUrl={items.image} />
-          </Col>;
-        })}
+        {data?.map((items) => (
+           <Col span={24} sm={6}>
+           <CardComponent title={items.name} imgUrl={items.image} Id={items.Id}/>
+         </Col>
+        )
+          
+         
+)}
       </Row>
     </MainLayout>
   );

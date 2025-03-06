@@ -13,6 +13,7 @@ export const fetchData = createAsyncThunk("characters/fetchData", async () => {
 
 const initialState = {
   characters: [], 
+  visitedprofile:[]
 };
 
 export const characterSlice = createSlice({
@@ -27,6 +28,7 @@ export const characterSlice = createSlice({
   },
 });
 
-export const characterData = (state) => console.log(state);
+export const characterData = (state) => state.characters.characters?.results;
 export const rootReducer = combineSlices(characterSlice);
+export default characterSlice.reducer;
 
