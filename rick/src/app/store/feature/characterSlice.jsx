@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice, combineSlices } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 export const fetchData = createAsyncThunk("characters/fetchData", async () => {
   try {
     const Url_path = "https://rickandmortyapi.com/api/character";
     const res = await fetch(Url_path);
     const characterData = await res.json();
-    console.log(characterData, "data ");
     return characterData;
   } catch (error) {
     throw error;
@@ -12,8 +12,9 @@ export const fetchData = createAsyncThunk("characters/fetchData", async () => {
 });
 
 const initialState = {
-  characters: [], 
-  visitedprofile:[]
+  characters: [], //initial state
+  status: "",
+  error: "",
 };
 
 export const characterSlice = createSlice({
@@ -21,14 +22,21 @@ export const characterSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchData.fulfilled, (state, action) => {
-      console.log(action.payload, "payload");
-      state.characters = action.payload;
-    });
+    builder
+      .addCase(fetchData.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchData.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.characters = action.payload;
+      })
+      .addCase(fetchData.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.error.message;
+      });
   },
 });
 
-export const characterData = (state) => state.characters.characters?.results;
-export const rootReducer = combineSlices(characterSlice);
+export const selectData = (state) => state.characters.characters?.results;
+export const selectStatusData = (state) => state.characters.status;
 export default characterSlice.reducer;
-
