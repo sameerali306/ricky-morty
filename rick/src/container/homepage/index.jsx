@@ -1,14 +1,14 @@
-import { Col, Row, Spin } from "antd"; // Ensure to import Spin from Ant Design
+import { Col, Row, Spin } from "antd"; 
 import MainLayout from "../layout";
-import { fetchData } from "../../app/store/feature/characterSlice"; // Only import fetchData
+import { fetchData } from "../../app/store/feature/characterSlice"; 
 import { selectData, selectStatusData } from "../../app/store/feature/characterSlice";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"; // Import useSelector and useDispatch from react-redux
+import { useDispatch, useSelector } from "react-redux"; 
 import CardComponent from "../../components/Card";
 
 function HomePage() {
-  const data = useSelector(selectData); // Use the correct selector
-  const status = useSelector(selectStatusData); // Get the status from the state
+  const data = useSelector(selectData); 
+  const status = useSelector(selectStatusData); 
   const dispatch = useDispatch();
   console.log(data, "data here!");
 
@@ -30,7 +30,7 @@ function HomePage() {
   };
 
   const cardWrapperStyle = {
-    backgroundColor: '#f5f5f5', // Light background for the card
+    backgroundColor: '#f5f5f5', 
     borderRadius: '8px',
     overflow: 'hidden',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',

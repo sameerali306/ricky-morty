@@ -12,7 +12,7 @@ export const fetchData = createAsyncThunk("characters/fetchData", async () => {
 });
 
 const initialState = {
-  characters: [], //initial state
+  characters: [], 
   status: "",
   error: "",
 };

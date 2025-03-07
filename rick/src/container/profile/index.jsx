@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router'; // Use react-router-dom for v6 or higher
+import { useParams, Link } from 'react-router';
 import { Card, Row, Col, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import MainLayout from "../layout";
 
 function Profile() {
-  const { id } = useParams(); // Get 'id' from URL
+  const { id } = useParams(); 
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,16 +25,15 @@ function Profile() {
     };
 
     fetchProfileData();
-  }, [id]); // Re-fetch if 'id' changes
+  }, [id]); 
 
-  if (loading) return <Spin size="large" />; // Show loading spinner
+  if (loading) return <Spin size="large" />; 
 
-  if (error) return <p>{error}</p>; // Show error message if fetch fails
+  if (error) return <p>{error}</p>; 
 
   return (
     <MainLayout>
       <div className="card">
-        {/* Back to HomePage Link */}
         <Link to="/" className="go-back-link">
           <FontAwesomeIcon icon={faArrowLeft} /> Back to HomePage
         </Link>
