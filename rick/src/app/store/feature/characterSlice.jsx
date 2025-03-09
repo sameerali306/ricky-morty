@@ -1,20 +1,31 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+// characterSlice.jsx
 
-export const fetchData = createAsyncThunk("characters/fetchData", async () => {
-  try {
-    const Url_path = "https://rickandmortyapi.com/api/character";
-    const res = await fetch(Url_path);
-    const characterData = await res.json();
-    return characterData;
-  } catch (error) {
-    throw error;
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+export const fetchData = createAsyncThunk(
+  "characters/fetchData",
+  async ({ page = 1 }) => {
+    try {
+      const base_url = `https://rickandmortyapi.com/api/character/?page=${page}`;
+      const res = await fetch(base_url);
+      const characterData = await res.json();
+      return characterData;
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
 const initialState = {
-  characters: [], 
+  characters: [],
   status: "",
   error: "",
+  pagination: {
+    count: 0,
+    pages: 0,
+    prev: "",
+    next: "",
+  },
 };
 
 export const characterSlice = createSlice({
@@ -28,7 +39,13 @@ export const characterSlice = createSlice({
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.characters = action.payload;
+        state.characters = action.payload.results; 
+        state.pagination = {
+          count: action.payload.info?.count,
+          pages: action.payload.info?.pages,
+          prev: action.payload.info?.prev,
+          next: action.payload.info?.next,
+        };
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.status = "error";
@@ -37,6 +54,9 @@ export const characterSlice = createSlice({
   },
 });
 
-export const selectData = (state) => state.characters.characters?.results;
-export const selectStatusData = (state) => state.characters.status;
+// Selectors
+export const selectData = (state) => state.characters.characters;
+export const selectPagination = (state) => state.characters.pagination;
+export const selectDataStatus = (state) => state.characters.status;  // Here is the selector you need
+
 export default characterSlice.reducer;

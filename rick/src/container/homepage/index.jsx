@@ -1,84 +1,72 @@
-import { Col, Row, Spin } from "antd"; 
+// HomePage.js
+import { useState, useEffect } from "react";
+import { Row, Col, Spin } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { selectData, fetchData, selectDataStatus, selectPagination } from "../../app/store/feature/characterSlice";
+import Card from "../../components/card";
 import MainLayout from "../layout";
-import { fetchData } from "../../app/store/feature/characterSlice"; 
-import { selectData, selectStatusData } from "../../app/store/feature/characterSlice";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"; 
-import CardComponent from "../../components/Card";
+import PaginationComponent from "../../components/pegination/Pegination";
+// import Header from "../../components/header/index";  // Import Header component
 
 function HomePage() {
-  const data = useSelector(selectData); 
-  const status = useSelector(selectStatusData); 
+  // const [searchQuery, setSearchQuery] = useState("");  // State for search query
+  const data = useSelector(selectData);
+  const dataStatus = useSelector(selectDataStatus);
+  const pagination = useSelector(selectPagination);
   const dispatch = useDispatch();
-  console.log(data, "data here!");
 
+  // Fetch data when the page loads
   useEffect(() => {
-    dispatch(fetchData());
+    dispatch(fetchData({ page: 1 }));
   }, [dispatch]);
 
-  const cardContainerStyle = {
-    padding: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+  const fetchCharacter = (page = 1) => {
+    dispatch(fetchData({ page }));
   };
 
-  const cardItemStyle = {
-    width: '100%',
-    margin: '10px',
-    transition: 'transform 0.3s ease-in-out',
-  };
+  // Filter the data based on the search query
+  const filteredData = data?.filter((character) =>
+    character.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-  const cardWrapperStyle = {
-    backgroundColor: '#f5f5f5', 
-    borderRadius: '8px',
-    overflow: 'hidden',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    transition: 'box-shadow 0.3s ease-in-out',
-  };
-
-  const cardWrapperHoverStyle = {
-    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-  };
-
-  const cardImageStyle = {
-    objectFit: 'cover',
-    width: '100%',
-    height: 'auto',
-  };
-
-  const cardTitleStyle = {
-    fontSize: '18px',
-    fontWeight: 'bold',
-    textAlign: 'center',
+  // Handle the search input change
+  const handleSearch = (value) => {
+    setSearchQuery(value);  // Set the search query based on the input
   };
 
   return (
     <MainLayout>
-      <Row justify="center" style={cardContainerStyle}>
-        {status === "loading" ? (
+      {/* <Header onSearch={handleSearch} />  Pass the handleSearch function to Header */}
+
+      <Row justify="center" gutter={[16, 24]}>
+        {dataStatus === "loading" ? (
           <Spin size="large" />
-        ) : status === "error" ? (
-          <p>Failed to fetch data</p>
+        ) : dataStatus === "error" ? (
+          <p>Failed to fetch!</p>
         ) : (
-          data?.map((item) => (
-            <Col key={item.id} xs={24} md={5} style={cardItemStyle}>
-              <div
-                style={{
-                  ...cardWrapperStyle,
-                  ...(status === "loading" ? cardWrapperHoverStyle : {}),
-                }}
-              >
-                <CardComponent
-                  title={item.name}
-                  imageUrl={item.image}
-                  id={item.id}
-                  imageStyle={cardImageStyle}
-                  titleStyle={cardTitleStyle}
-                />
-              </div>
+          (filteredData.length ? filteredData : data)?.map((items) => (
+            <Col key={items.id} xs={24} md={5}>
+              <Card
+                title={<div className="card-title">{items.name}</div>}
+                imageUrl={items.image}
+                id={items.id}
+              />
             </Col>
           ))
+        )}
+      </Row>
+
+      <Row style={{ justifyContent: "end" }}>
+        {pagination?.count > 20 && (
+          <Col span={9}>
+            <PaginationComponent
+              onChange={(page) => {
+                fetchCharacter(page);
+              }}
+              total={pagination.count ?? 0}
+              pageSize={20}
+            />
+          </Col>
         )}
       </Row>
     </MainLayout>
