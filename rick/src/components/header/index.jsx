@@ -16,7 +16,7 @@ function Header({ onSearch }) {
           placeholder="Search by character name"
           enterButton="Search"
           size="large"
-          onSearch={onSearch}  // This calls the onSearch passed from HomePage
+          onSearch={onSearch}  
         />
       </Col>
     </Row>

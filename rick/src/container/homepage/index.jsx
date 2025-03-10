@@ -1,4 +1,3 @@
-// HomePage.js
 import { useState, useEffect } from "react";
 import { Row, Col, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,29 +8,30 @@ import PaginationComponent from "../../components/pegination/Pegination";
 // import Header from "../../components/header/index";  // Import Header component
 
 function HomePage() {
-  // const [searchQuery, setSearchQuery] = useState("");  // State for search query
+  const [searchQuery, setSearchQuery] = useState("");  // State for search query
   const data = useSelector(selectData);
   const dataStatus = useSelector(selectDataStatus);
   const pagination = useSelector(selectPagination);
   const dispatch = useDispatch();
 
-  // Fetch data when the page loads
+//  this useeffect function is used to render data when the component mount 
   useEffect(() => {
     dispatch(fetchData({ page: 1 }));
   }, [dispatch]);
-
+// this fetchcharacter function dispatch the data according to the page number its by default 1
   const fetchCharacter = (page = 1) => {
     dispatch(fetchData({ page }));
   };
 
-  // Filter the data based on the search query
+//  this filterdata is used to search data according to the seacn name 
+// the name.tolowercase is use to make the search query and the name insensitive
   const filteredData = data?.filter((character) =>
     character.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Handle the search input change
+//  the handlesearch query is use to update th search query
   const handleSearch = (value) => {
-    setSearchQuery(value);  // Set the search query based on the input
+    setSearchQuery(value); 
   };
 
   return (

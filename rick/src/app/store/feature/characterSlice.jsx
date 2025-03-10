@@ -1,5 +1,3 @@
-// characterSlice.jsx
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchData = createAsyncThunk(

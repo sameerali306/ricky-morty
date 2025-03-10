@@ -4,13 +4,14 @@ import { Card, Row, Col, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import MainLayout from "../layout";
-
+// the useparams is used to access parameter from the url in this case the parameter is id
+// it is useful to retrive data of specific id
 function Profile() {
   const { id } = useParams(); 
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+// this useeffecct hook run when the component mount and fetch data from api based on is
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
