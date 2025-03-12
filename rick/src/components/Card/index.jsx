@@ -1,8 +1,15 @@
 import { Card } from "antd";
 import { Link } from "react-router"; 
 import Heading from "../heading/Heading";
+import { Badge } from 'antd';
 
-function CardComponent({ title, imageUrl, id }) {
+function CardComponent({ title, imageUrl, id ,status}) {
+  const statusColors={
+      Alive:"success",
+      Dead:"error",
+      unknown:"default"
+
+  }
   return (
     <Card
       cover={
@@ -15,7 +22,10 @@ function CardComponent({ title, imageUrl, id }) {
       style={{ width: "100%", height: "auto" }}
     >
       <Heading />
-      <h3>{title}</h3>
+     
+      <Badge dot status={statusColors[status]} className="badge">
+   </Badge>
+    <h3>{title}</h3>
       <Link to={`/profile/${id}`}>View profile</Link> 
     </Card>
   );

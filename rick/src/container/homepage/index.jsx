@@ -50,6 +50,7 @@ function HomePage() {
                 title={<div className="card-title">{items.name}</div>}
                 imageUrl={items.image}
                 id={items.id}
+                status={items.status}
               />
             </Col>
           ))

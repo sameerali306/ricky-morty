@@ -11,7 +11,7 @@ function Profile() {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-// this useeffecct hook run when the component mount and fetch data from api based on is
+// this useeffecct hook run when the component mount and fetch data from api based on id
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
