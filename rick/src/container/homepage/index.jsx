@@ -5,7 +5,6 @@ import { selectData, fetchData, selectDataStatus, selectPagination } from "../..
 import Card from "../../components/card";
 import MainLayout from "../layout";
 import PaginationComponent from "../../components/pegination/Pegination";
-// import Header from "../../components/header/index";  // Import Header component
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");  // State for search query
@@ -13,18 +12,16 @@ function HomePage() {
   const dataStatus = useSelector(selectDataStatus);
   const pagination = useSelector(selectPagination);
   const dispatch = useDispatch();
-
-//  this useeffect function is used to render data when the component mount 
+ 
   useEffect(() => {
     dispatch(fetchData({ page: 1 }));
   }, [dispatch]);
-// this fetchcharacter function dispatch the data according to the page number its by default 1
+
   const fetchCharacter = (page = 1) => {
     dispatch(fetchData({ page }));
   };
 
-//  this filterdata is used to search data according to the seacn name 
-// the name.tolowercase is use to make the search query and the name insensitive
+
   const filteredData = data?.filter((character) =>
     character.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
