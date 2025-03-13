@@ -1,8 +1,7 @@
 import { Layout } from "antd";
 import Header from "../../components/header";
 // import Footer from "../../components/footer"
-import Footer from "../../components/Footer/Footer"
-
+import Footer from "../../components/footer/Footer"
 import { Divider } from "antd";
 const { Header: AntHeader, Footer: AntFooter, Content } = Layout;
 
@@ -16,7 +15,7 @@ const MainLayout = ({ children }) => (
     <AntFooter style={{ backgroundColor: "#efefef" }}>
       
    
-      <Footer />
+      <Footer/>
     </AntFooter>
   </Layout>
 );

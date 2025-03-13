@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import MainLayout from "../layout";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCharacterById } from "../../app/store/feature/characterSlice"; // Import the new thunk
-// import { setRecentProfile } from "../../app/store/feature/characterSlice";
+import { fetchCharacterById ,setRecentProfile} from "../../app/store/feature/characterSlice"; 
 
 function Profile() {
   const { id } = useParams();  // Get the character id from URL
@@ -14,12 +13,33 @@ function Profile() {
   const { singleCharacter, status, error } = useSelector(
     (state) => state.characters  // Access the Redux state
   );
+  const recentVisitedProfile = useSelector(
+    (state) => state.characters.recentVisitedProfile
+  );
+  console.log(recentVisitedProfile,"hello");
+  
 
   // Fetch character data when the component mounts or when the id changes
   useEffect(() => {
     dispatch(fetchCharacterById(id));
-  }, [id, dispatch]);
+  }, [ dispatch]);
 
+  useEffect(() => {
+    let recentVisitedList = recentVisitedProfile.filter(
+      (item) => item.id !== singleCharacter.id
+    );
+    singleCharacter !== null &&
+      dispatch(
+        setRecentProfile([
+          ...recentVisitedList,
+          {
+            label: singleCharacter?.name,
+            id: singleCharacter?.id,
+            image: singleCharacter?.image
+          },
+        ])
+      );
+  }, [singleCharacter]);
   // Loading state
   if (status === "loading") return <Spin size="large" />;
 
@@ -29,25 +49,9 @@ function Profile() {
   // If no character data yet, show fallback
   if (!singleCharacter) return <p>No character data available</p>;
 
-//   useEffect(() => {
-//     let recentVisitedList = recentVisitedProfile.filter(
-//       (item) => item.id !== singleCharacterData.id
-//     );
-//     singleCharacterData !== null &&
-//       dispatch(
-//         setRecentProfiles([
-//           ...recentVisitedList,
-//           {
-//             label: singleCharacterData?.name,
-//             id: singleCharacterData?.id,
-//           },
-//         ])
-//       );
-//   }, [setRecentProfile]);
 
-//  const recentVisitedProfile = useSelector(
-//     (state) => state.characters.recentVisitedProfile
-//   );
+
+
 
   return (
     <MainLayout>

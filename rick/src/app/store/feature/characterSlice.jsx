@@ -3,9 +3,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // Existing fetchData for multiple characters
 export const fetchData = createAsyncThunk(
   "characters/fetchData",
-  async ({ page = 1 }) => {
+  async ({ page = 1  }) => {
     try {
-      const base_url = `https://rickandmortyapi.com/api/character/?page=${page}`;
+      const base_url = `https://rickandmortyapi.com/api/character/?page=${page} `;
       const res = await fetch(base_url);
       const characterData = await res.json();
       return characterData;
