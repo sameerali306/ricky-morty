@@ -1,11 +1,9 @@
 import { Row, Col, Input } from "antd";
 import Heading from "../heading/Heading";
 
-
 const { Search } = Input;
 
 function Header({ onSearch }) {
-
   return (
     <Row>
       <Col span={24} sm={14} offset={1}>
@@ -16,7 +14,7 @@ function Header({ onSearch }) {
           placeholder="Search by character name"
           enterButton="Search"
           size="large"
-          onSearch={onSearch}  
+          onSearch={onSearch}  // onSearch will trigger the passed handleSearch function
         />
       </Col>
     </Row>
