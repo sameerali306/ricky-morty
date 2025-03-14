@@ -1,9 +1,20 @@
 import { Row, Col, Input } from "antd";
 import Heading from "../heading/Heading";
+import { useDispatch } from "react-redux";
+import { fetchData, setSearchQuery } from "../../app/store/feature/characterSlice";
 
 const { Search } = Input;
 
-function Header({ onSearch }) {
+function Header({ onSearch: externalOnSearch }) {
+  const dispatch = useDispatch();
+
+  const handleSearch = (value) => {
+    dispatch(setSearchQuery(value));  
+    dispatch(fetchData({ page: 1, query: value }));  
+
+    if (externalOnSearch) externalOnSearch(value);  
+  };
+
   return (
     <Row>
       <Col span={24} sm={14} offset={1}>
@@ -14,7 +25,7 @@ function Header({ onSearch }) {
           placeholder="Search by character name"
           enterButton="Search"
           size="large"
-          onSearch={onSearch}  // onSearch will trigger the passed handleSearch function
+          onSearch={handleSearch} 
         />
       </Col>
     </Row>

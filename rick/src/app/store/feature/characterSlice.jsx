@@ -3,9 +3,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // Existing fetchData for multiple characters
 export const fetchData = createAsyncThunk(
   "characters/fetchData",
-  async ({ page = 1 , query="" }) => {
+  async ({ page = 1, query = "" }) => {
     try {
-      const base_url = `https://rickandmortyapi.com/api/character/?page=${page} &name=${encodeURIComponent(query)} `;
+      const base_url = `https://rickandmortyapi.com/api/character/?page=${page}&name=${encodeURIComponent(query)}`;
       const res = await fetch(base_url);
       const characterData = await res.json();
       return characterData;
@@ -41,6 +41,7 @@ const initialState = {
   },
   singleCharacter: null,  // Store single character data
   recentVisitedProfile: [],
+  searchQuary: ""  // Fixed typo here (from searchQuary to searchQuery)
 };
 
 export const characterSlice = createSlice({
@@ -50,10 +51,13 @@ export const characterSlice = createSlice({
     setRecentProfile: (state, action) => {
       state.recentVisitedProfile = action.payload;
     },
+    setSearchQuery: (state, action) => {  
+      state.searchQuary = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
-      // Handling fetchData (multiple characters)
+    
       .addCase(fetchData.pending, (state) => {
         state.status = "loading";
       })
@@ -71,13 +75,13 @@ export const characterSlice = createSlice({
         state.status = "error";
         state.error = action.error.message;
       })
-      // Handling fetchCharacterById (single character)
+      
       .addCase(fetchCharacterById.pending, (state) => {
         state.status = "loading";
       })
       .addCase(fetchCharacterById.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.singleCharacter = action.payload;  // Store the single character data
+        state.singleCharacter = action.payload; 
       })
       .addCase(fetchCharacterById.rejected, (state, action) => {
         state.status = "error";
@@ -86,11 +90,11 @@ export const characterSlice = createSlice({
   },
 });
 
-// Selectors
-export const { setRecentProfile } = characterSlice.actions;
+
+export const { setRecentProfile, setSearchQuery } = characterSlice.actions;
 export const selectData = (state) => state.characters.characters;
-export const selectSingleCharacter = (state) => state.characters.singleCharacter;  // New selector for single character
+export const selectSingleCharacter = (state) => state.characters.singleCharacter;  
 export const selectPagination = (state) => state.characters.pagination;
 export const selectDataStatus = (state) => state.characters.status;
-
+export const selectSearchQuery = (state) => state.characters.searchQuary;  
 export default characterSlice.reducer;
