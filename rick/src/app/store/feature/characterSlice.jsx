@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Existing fetchData for multiple characters
+// Fetch data for multiple characters
 export const fetchData = createAsyncThunk(
   "characters/fetchData",
   async ({ page = 1, query = "" }) => {
@@ -15,7 +15,7 @@ export const fetchData = createAsyncThunk(
   }
 );
 
-// New async thunk to fetch a single character by ID
+// Fetch a single character by ID
 export const fetchCharacterById = createAsyncThunk(
   "characters/fetchCharacterById",
   async (id) => {
@@ -29,6 +29,7 @@ export const fetchCharacterById = createAsyncThunk(
   }
 );
 
+// Initial state for the character slice
 const initialState = {
   characters: [],
   status: "",
@@ -39,25 +40,33 @@ const initialState = {
     prev: "",
     next: "",
   },
-  singleCharacter: null,  // Store single character data
+  singleCharacter: null,
   recentVisitedProfile: [],
-  searchQuary: ""  // Fixed typo here (from searchQuary to searchQuery)
+  searchQuery: "", // Search query for filtering characters
+  searchHistory: [], // Store search history
 };
 
 export const characterSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
+    // Set the current search query
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
+    },
+    // Add the search query to the search history (limiting to 5 queries)
+    addSearchToHistory: (state, action) => {
+      const newHistory = [action.payload, ...state.searchHistory].slice(0, 5); // Limit to 5 search queries
+      state.searchHistory = newHistory;
+    },
+    // Set recent visited profiles
     setRecentProfile: (state, action) => {
       state.recentVisitedProfile = action.payload;
-    },
-    setSearchQuery: (state, action) => {  
-      state.searchQuary = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-    
+      // Handle the fetch data for multiple characters
       .addCase(fetchData.pending, (state) => {
         state.status = "loading";
       })
@@ -76,12 +85,13 @@ export const characterSlice = createSlice({
         state.error = action.error.message;
       })
       
+      // Handle the fetch data for a single character by ID
       .addCase(fetchCharacterById.pending, (state) => {
         state.status = "loading";
       })
       .addCase(fetchCharacterById.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.singleCharacter = action.payload; 
+        state.singleCharacter = action.payload;
       })
       .addCase(fetchCharacterById.rejected, (state, action) => {
         state.status = "error";
@@ -90,11 +100,18 @@ export const characterSlice = createSlice({
   },
 });
 
+export const {
+  setSearchQuery,
+  addSearchToHistory,
+  setRecentProfile,
+} = characterSlice.actions;
 
-export const { setRecentProfile, setSearchQuery } = characterSlice.actions;
+// Selectors to get the current state
 export const selectData = (state) => state.characters.characters;
-export const selectSingleCharacter = (state) => state.characters.singleCharacter;  
+export const selectSingleCharacter = (state) => state.characters.singleCharacter;
 export const selectPagination = (state) => state.characters.pagination;
 export const selectDataStatus = (state) => state.characters.status;
-export const selectSearchQuery = (state) => state.characters.searchQuary;  
+export const selectSearchQuery = (state) => state.characters.searchQuery;
+export const selectSearchHistory = (state) => state.characters.searchHistory;  // New selector for search history
+
 export default characterSlice.reducer;

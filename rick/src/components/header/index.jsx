@@ -1,16 +1,18 @@
-import { Row, Col, Input } from "antd";
+import { Row, Col, Input, AutoComplete } from "antd";
 import Heading from "../heading/Heading";
-import { useDispatch } from "react-redux";
-import { fetchData, setSearchQuery } from "../../app/store/feature/characterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData, setSearchQuery, addSearchToHistory, selectSearchHistory } from "../../app/store/feature/characterSlice";
 
 const { Search } = Input;
 
 function Header({ onSearch: externalOnSearch }) {
   const dispatch = useDispatch();
+  const searchHistory = useSelector(selectSearchHistory);  // Get search history from state
 
   const handleSearch = (value) => {
-    dispatch(setSearchQuery(value));  
-    dispatch(fetchData({ page: 1, query: value }));  
+    dispatch(setSearchQuery(value));
+    dispatch(fetchData({ page: 1, query: value }));
+    dispatch(addSearchToHistory(value));  // Add the search query to history
 
     if (externalOnSearch) externalOnSearch(value);  
   };
@@ -21,12 +23,17 @@ function Header({ onSearch: externalOnSearch }) {
         <Heading level={3} title={"Rick And Morty"} />
       </Col>
       <Col span={24} sm={8} offset={1}>
-        <Search
-          placeholder="Search by character name"
-          enterButton="Search"
-          size="large"
-          onSearch={handleSearch} 
-        />
+        <AutoComplete
+          options={searchHistory.map((query) => ({ value: query }))}
+          onSelect={(value) => handleSearch(value)} // Allows user to select from history
+        >
+          <Search
+            placeholder="Search by character name"
+            enterButton="Search"
+            size="large"
+            onSearch={handleSearch}
+          />
+        </AutoComplete>
       </Col>
     </Row>
   );
