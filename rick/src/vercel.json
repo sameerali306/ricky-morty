@@ -1,12 +1,7 @@
 {
-    "routes":[
-        {
-            "src":"/",
-            "dest":"/"
-        },
-        {
-            "src":"/Profile/:id",
-            "dest":"/"
-        }
-    ]
+    
+        "redirects": [
+          { "source": "/old-path", "destination": "/new-path", "permanent": true }
+        ]
+      
 }
